@@ -1,6 +1,6 @@
 # Pakunok - common assets that you need for Rails 3.1
 
-_Pakunok_ contains a set of prepackaged assets that you can easily include into you Rails 3.1 application (using assets pipeline).
+_Pakunok_ contains a set of prepackaged assets that you can easily include into your Rails 3.1 application (using assets pipeline).
 
 The list of the assets included (you can reference then using the name below prefixed with `pakunok/`:
 
