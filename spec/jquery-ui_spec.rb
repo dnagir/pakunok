@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 describe 'Assets for jQuery-UI' do
   subject { assets }
   everything = %w{core.js accordion.js autocomplete.js button.js datepicker.js dialog.js
