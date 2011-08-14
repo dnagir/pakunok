@@ -2,7 +2,7 @@
 
 _Pakunok_ contains a set of prepackaged assets that you can easily include into your Rails 3.1 application (using assets pipeline).
 
-The list of the assets included (you can reference then using the name below prefixed with `pakunok/`:
+The list of the assets included (reference those prefixed with `pakunok/`):
 
 - jquery (defaults to 1.6.2)
   - jquery/jquery-1.6.2
@@ -71,12 +71,11 @@ Then `bundle install`.
 
 # Usage
 
-You can reference the assets as usually using the sprockets.
-Let's see full example (includes everything for the sake of demo):
+Reference as you normally do with Sprockets.
+Let's see some examples:
 
 
-
-## JavaScript Only libraries
+## JavaScript-only libraries
 
 You can simply reference plain JS libraries that do not require other assets (CSS, images) like this:
 
@@ -91,7 +90,7 @@ You can simply reference plain JS libraries that do not require other assets (CS
 
 //= require 'pakunok/innershiv'
 
-// jQuery plug-ins do no automatically include jQuery to allow to use them as a separate script tag
+// jQuery plug-ins do no depend on jQuery to allow using as a separate HTTP resource
 //= require 'pakunok/jquery.form'
 //= require 'pakunok/jquery.jscrollpane'
 //= require 'pakunok/jquery.mousewheel'
@@ -122,26 +121,23 @@ It is named after the JavaScript library.
 
 # Precompilation
 By default Rails precompiles all the assets of all included libraries.
-This means that ALL of the assets will be compiled (although you only use part of it).
+This means that _ALL_ of the assets will be compiled (although you rarely need that).
 
-Please run `RAILS_ENV=production bundle exec rake assets:clean assets:precompile && tree public/assets` to verify necessary assets.
+Please run `RAILS_ENV=production bundle exec rake assets:clean assets:precompile && tree public/assets` to verify necessary files.
 
-It is recommended to change the default behaviour so that you know which assets are compiled:
+It is recommended to change the default behaviour so that you are not precompiling assets that the application will never use:
 
 ```ruby
 # config/application.rb
 
-# Something like this is the default
+# Something like this is the Rails default
 #config.assets.precompile = [/\w+\.(?!js|css).+/, /application.(css|js)$/]
 
 # Recommended: Explicitly add assets that you use (colorpicker),
 #  so that images and styles are available.
 config.assets.precompile = [/application.(css|js)$/, /pakunok\/colorpicker/]
 
-# Specify precompilable assets explicitly if you don't reference any assets from pakunok
-config.assets.precompile = [/application.(css|js)$/, 'expclicit-file.js', 'pakunok/colorpicker']
-
-# Exclude all pakunok assets from precompilation (it's ok if you reference only JS)
+# Exclude all pakunok assets from precompilation (it's ok if you don't have direct HTTP request to them)
 config.assets.precompile = [/(!pakunok)\w+\.(?!js|css).+/, /application.(css|js)$/]
 
 # Exclude all pakunok assets, but explicitly add ones that you use (colorpicker),
