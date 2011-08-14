@@ -1,5 +1,7 @@
-# Provide a simple gemspec so you can easily use your
-# project in your rails apps through git.
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "pakunok/version"
+
 Gem::Specification.new do |s|
   s.name        = "pakunok"
   s.version     = Pakunok::Version::VERSION

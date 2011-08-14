@@ -120,6 +120,35 @@ It is named after the JavaScript library.
 ```
 
 
+# Precompilation
+By default Rails precompiles all the assets of all included libraries.
+This means that ALL of the assets will be compiled (although you only use part of it).
+
+Please run `RAILS_ENV=production bundle exec rake assets:clean assets:precompile && tree public/assets` to verify necessary assets.
+
+It is recommended to change the default behaviour so that you know which assets are compiled:
+
+```ruby
+# config/application.rb
+
+# Something like this is the default
+#config.assets.precompile = [/\w+\.(?!js|css).+/, /application.(css|js)$/]
+
+# Recommended: Explicitly add assets that you use (colorpicker),
+#  so that images and styles are available.
+config.assets.precompile = [/application.(css|js)$/, /pakunok\/colorpicker/]
+
+# Specify precompilable assets explicitly if you don't reference any assets from pakunok
+config.assets.precompile = [/application.(css|js)$/, 'expclicit-file.js', 'pakunok/colorpicker']
+
+# Exclude all pakunok assets from precompilation (it's ok if you reference only JS)
+config.assets.precompile = [/(!pakunok)\w+\.(?!js|css).+/, /application.(css|js)$/]
+
+# Exclude all pakunok assets, but explicitly add ones that you use (colorpicker),
+#  so that images and styles are available.
+config.assets.precompile = [/(!pakunok)\w+\.(?!js|css).+/, /application.(css|js)$/, /pakunok\/colorpicker/]
+```
+
 # Note on JQuery-UI
 
 In many cases you do not need the full jQuery-UI package, so you can do the following:
@@ -131,7 +160,7 @@ All the files under `pakunok/jquery-ui/*` do not automatically include depndenci
 But if you want to include all the dependencies into a single file, then use `pakunok/jquery-ui/pack/*`.
 
 
-## Development
+# Development
 
 - Source hosted at [GitHub](https://github.com/dnagir/pakunok)
 - Report issues and feature requests to [GitHub Issues](https://github.com/dnagir/pakunok/issues)
