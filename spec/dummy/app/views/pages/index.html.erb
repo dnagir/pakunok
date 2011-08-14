@@ -1,0 +1,20 @@
+<h1>Samples</h1>
+
+<% 
+[
+  'colorpicker.js', 'colorpicker.css',
+  'jquery.js', 'jquery-ui.js' 'jquery-ui/pack/dialog.js', 
+  'fileuploader.js', 'fileuploader.css', 'fileuploader/loading.gif',
+  'innershiv.js',
+  'jquery.form.js'
+].each do |asset| 
+
+%>
+  <% path = asset_path "pakunok/#{asset}"%>
+  <p>
+    <a href="<%= path %>">
+      <%= path %>
+    </a>
+  </p>
+<% end%>
+
