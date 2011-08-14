@@ -1,29 +1,18 @@
 require 'spec_helper'
 
-describe 'Assets for Colorpicker' do
+describe 'Assets for FileUploader' do
   subject { assets }
 
-  it { should serve 'pakunok/colorpicker.js' } 
-  it { should serve 'pakunok/colorpicker.css' } 
+  it { should serve 'pakunok/fileuploader.js' } 
+  it { should serve 'pakunok/fileuploader.css' } 
   it "should not look like it has hardcoded image links" do
-    asset_for('pakunok/colorpicker.css').to_s.should_not include '/images/'
+    asset_for('pakunok/fileuploader.css').to_s.should_not include 'url("loading.gif")'
   end
 
 
   %w{
-    colorpicker_background.png
-    colorpicker_hex.png
-    colorpicker_hsb_b.png
-    colorpicker_hsb_h.png
-    colorpicker_hsb_s.png
-    colorpicker_indic.gif
-    colorpicker_overlay.png
-    colorpicker_rgb_b.png
-    colorpicker_rgb_g.png
-    colorpicker_rgb_r.png
-    colorpicker_select.gif
-    colorpicker_submit.png
+    loading.gif
   }.each do |image_name|
-    it { should serve "pakunok/colorpicker/#{image_name}" }
+    it { should serve "pakunok/fileuploader/#{image_name}" }
   end
 end
