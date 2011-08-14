@@ -1,6 +1,6 @@
-# Pakunok - all common assets that you need for Rails 3.1
+# Pakunok - common assets that you need for Rails 3.1
 
-Pakunok contains a set of prepackaged assets so that you can easily include those into you Rails 3.1 application with assets pipeline.
+_Pakunok_ contains a set of prepackaged assets that you can easily include into you Rails 3.1 application (using assets pipeline).
 
 The list of the assets included (you can reference then using the name below prefixed with `pakunok/`:
 
@@ -35,7 +35,7 @@ The list of the assets included (you can reference then using the name below pre
   - slider
   - sortable
   - tabs
-  - widget    
+  - widget
 - jquery-ui -  combined (`jquery-ui/pack/`): ready-to-go options, you can include multiple into only one script file
   - accordion
   - autocomplete
@@ -54,16 +54,20 @@ The list of the assets included (you can reference then using the name below pre
   - tabs
 
 
+Tested on MRI Ruby 1.9.2.
+
+If you have any questions please contact me [@dnagir](http://www.ApproachE.com).
+
+
 # Install
 
-Install the gem:
-
-Add it to your `Gemfile`:
+Add it to your Rails application's `Gemfile`:
 
 ```ruby
 gem 'pakunok'
 ```
 
+Then `bundle install`.
 
 # Usage
 
@@ -74,7 +78,7 @@ Let's see full example (includes everything for the sake of demo):
 
 ## JavaScript Only libraries
 
-You can simply reference plan JS libraries that do not require other assets (CSS, images) like this:
+You can simply reference plain JS libraries that do not require other assets (CSS, images) like this:
 
 ```javascript
 // app/assets/javascripts/application.js
@@ -87,10 +91,8 @@ You can simply reference plan JS libraries that do not require other assets (CSS
 
 //= require 'pakunok/innershiv'
 
-//= require 'pakunok/innershiv'
-//= require 'pakunok/jquery.form'
-
 // jQuery plug-ins do no automatically include jQuery to allow to use them as a separate script tag
+//= require 'pakunok/jquery.form'
 //= require 'pakunok/jquery.jscrollpane'
 //= require 'pakunok/jquery.mousewheel'
 //= require 'pakunok/mwheelIntent'
