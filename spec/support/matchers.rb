@@ -40,6 +40,7 @@ end
 
 RSpec::Matchers.define :depend_on do |dependencies, opts = {}|
   match do |asset|
+    raise 'No asset available to assert dependencies on' unless asset
     dependencies = [dependencies] unless dependencies.respond_to?(:to_a)
     prefix = opts[:within] || opts[:prefix]
     dependencies = dependencies.map {|d| "#{prefix}#{d}" } if prefix
