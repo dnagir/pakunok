@@ -17,42 +17,41 @@ The list of the assets included (you can reference then using the name below pre
 - jquery.mousewheel (optional improvement for jquery.jscrollpane)
 - mwheelIntent  (optional improvement for jquery.jscrollpane)
 - jquery.viewport
-- jquery-ui (full or partial; combned or standalone)
-  - standalone files (`jquery-ui/`): no dependencies tracked, serve these when part of jQueryUI has already been included elsewhere
-    - accordion
-    - autocomplete
-    - button
-    - core
-    - datepicker
-    - dialog
-    - draggable
-    - droppable
-    - effects (all effects, does not require jQuery-UI core)
-    - mouse
-    - position
-    - progressbar
-    - resizable
-    - selectable
-    - slider
-    - sortable
-    - tabs
-    - widget
-  - combined (`jquery-ui/pack/`): ready-to-go options, you can include multiple into only one script file
-    - accordion
-    - autocomplete
-    - basic (includes core, widget, position, mouse components)
-    - button
-    - datepicker
-    - dialog
-    - draggable
-    - droppable
-    - effects (same as standalone)
-    - progressbar
-    - resizable
-    - selectable
-    - slider
-    - sortable
-    - tabs
+- jquery-ui - standalone files (`jquery-ui/`): no dependencies tracked, serve these when part of jQueryUI has already been included elsewhere
+  - accordion
+  - autocomplete
+  - button
+  - core
+  - datepicker
+  - dialog
+  - draggable
+  - droppable
+  - effects (all effects, does not require jQuery-UI core)
+  - mouse
+  - position
+  - progressbar
+  - resizable
+  - selectable
+  - slider
+  - sortable
+  - tabs
+  - widget    
+- jquery-ui -  combined (`jquery-ui/pack/`): ready-to-go options, you can include multiple into only one script file
+  - accordion
+  - autocomplete
+  - basic (includes core, widget, position, mouse components)
+  - button
+  - datepicker
+  - dialog
+  - draggable
+  - droppable
+  - effects (same as standalone)
+  - progressbar
+  - resizable
+  - selectable
+  - slider
+  - sortable
+  - tabs
 
 
 # Install
