@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency             'rails', '>= 3.1.0.rc5'
   s.add_dependency             'sprockets', '>= 2.0.0.beta13'
+  s.add_dependency             'execjs'
   s.add_development_dependency 'rspec'
 
   s.files         = `git ls-files`.split("\n")

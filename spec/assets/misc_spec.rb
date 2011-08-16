@@ -20,4 +20,6 @@ describe 'Assets for Misc' do
   it { should serve 'pakunok/jquery.validate/additional-methods.js' } 
 
   it { should serve 'pakunok/jquery.viewport.js' } 
+
+  it { should serve 'pakunok/haml.js' } 
 end
