@@ -172,7 +172,7 @@ For example, assuming you have a file `app/assets/comment.js.hamljs` with the co
 ```
 
 Then you can `require comment` from the `application.js`.
-This give you access to `Templates.comment` function allowing you to write JavaScript like this:
+This gives you access to `Templates.comment` function allowing you to write JavaScript like:
 
 ```javascript
 var html = Templates.comment({author: 'Dima', text: 'Awesome'});
