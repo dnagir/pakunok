@@ -162,3 +162,10 @@ But if you want to include all the dependencies into a single file, then use `pa
 - Report issues and feature requests to [GitHub Issues](https://github.com/dnagir/pakunok/issues)
 
 Pull requests are very welcome! But please write the specs.
+
+To start, clone the repo and then:
+
+```shell
+bundle install
+bundle exec rspec spec/
+```
