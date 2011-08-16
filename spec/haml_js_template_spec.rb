@@ -20,6 +20,8 @@ describe 'HAML-JS processor' do
 
     it { should include "function (locals) {" }
 
+    it { should include 'function html_escape' }
+
     it 'should make template available for JavaScript' do
       context = ExecJS.compile(subject)
       html = context.eval("Templates.myTemplate({name: 'dima'})")
@@ -27,6 +29,18 @@ describe 'HAML-JS processor' do
       html.should include 'dima'
     end
 
+    it 'should be safe by default' do
+      context = ExecJS.compile(subject)
+      html = context.eval("Templates.myTemplate({name: '<script>'})")
+      html.should_not include '<script>'
+      html.should include '&lt;script&gt;'
+    end
+
+    context 'with custom escape' do
+      before  { Pakunok::HamlJsTemplate.custom_escape = 'best_escaper_ever' }
+      after   { Pakunok::HamlJsTemplate.custom_escape = nil }
+      it      { should include 'best_escaper_ever(' }
+    end
   end
 
   describe 'template naming for' do

@@ -31,20 +31,30 @@ module Pakunok
     end
 
     def compile_to_function
-      function = ExecJS.compile(self.class.haml_source).eval("Haml('#{escaped_haml_data}').toString()")
+      function = ExecJS.
+        compile(self.class.haml_source).
+        eval "Haml('#{js_string data}', {escapeHtmlByDefault: true, customEscape: #{js_custom_escape}}).toString()"
       # make sure function is annonymous
       function.sub /function \w+/, "function "
     end
 
-    def escaped_haml_data
-      escaped = (data || '')
-        .gsub("'")  {|m| "\\'" }
-        .gsub("\n") {|m| "\\n" }
+    def js_string str
+      (str || '').
+        gsub("'")  {|m| "\\'" }.
+        gsub("\n") {|m| "\\n" }
     end
 
-    def self.haml_source
-      # Haml source is an asset
-      @haml_source ||= IO.read File.expand_path('../../../vendor/assets/javascripts/pakunok/haml.js', __FILE__) 
+    def js_custom_escape
+      self.class.custom_escape ? "'#{js_string self.class.custom_escape}'" : 'null'
+    end
+
+    class << self
+      attr_accessor :custom_escape
+
+      def haml_source
+        # Haml source is an asset
+        @haml_source ||= IO.read File.expand_path('../../../vendor/assets/javascripts/pakunok/haml.js', __FILE__) 
+      end
     end
   end
 end
