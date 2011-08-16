@@ -4,10 +4,20 @@ module Pakunok
   class HamlJsTemplate < Tilt::Template
     self.default_mime_type = 'application/javascript'
 
-    def prepare
-      # be lazy
-      require 'execjs'
+
+    def self.engine_initialized?
+      defined? ::ExecJS
     end
+
+
+    def initialize_engine
+      require_template_library 'execjs'
+    end
+
+    
+    def prepare
+    end
+
 
     def evaluate(scope, locals, &block)
       @output ||= <<-TEMPLATE
@@ -16,6 +26,7 @@ module Pakunok
 })(this);
         TEMPLATE
     end
+
 
     def client_name
       #TODO: Do something better for generating name of the template
@@ -30,6 +41,7 @@ module Pakunok
       res.split('.').first # chomp of the extensions
     end
 
+
     def compile_to_function
       function = ExecJS.
         compile(self.class.haml_source).
@@ -38,15 +50,18 @@ module Pakunok
       function.sub /function \w+/, "function "
     end
 
+
     def js_string str
       (str || '').
         gsub("'")  {|m| "\\'" }.
         gsub("\n") {|m| "\\n" }
     end
 
+
     def js_custom_escape
       self.class.custom_escape ? "'#{js_string self.class.custom_escape}'" : 'null'
     end
+
 
     class << self
       attr_accessor :custom_escape
