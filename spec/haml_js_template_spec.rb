@@ -31,8 +31,13 @@ describe 'HAML-JS processor' do
 
   describe 'template naming for' do
     {
-      'file'                => 'file',
-      'file.js.erb.hamljs'  => 'file'
+      'file'                      => 'file',
+      'file.js.erb.hamljs'        => 'file',
+      'file-with-dash.hamljs'     => 'fileWithDash',
+      'file_with_underscore'      => 'fileWithUnderscore',
+      'dir/foo_bar'               => 'dir_fooBar',
+      'win\\dir\\foo_bar'         => 'win_dir_fooBar',
+      'd1/d2/foo_bar.js.a.b.c.d'  => 'd1_d2_fooBar'
     }.each_pair do |file, name|
       it "#{file} should be #{name}" do
         template('#main', file).client_name.should == name

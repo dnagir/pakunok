@@ -12,13 +12,22 @@ module Pakunok
     def evaluate(scope, locals, &block)
       @output ||= <<-TEMPLATE
 (function(scope){
-  (scope.Templates || (scope.Templates = {}))['#{client_name}'] = #{compile_to_function}
+  (scope.Templates || (scope.Templates = {}))['#{client_name}'] = #{compile_to_function};
 })(this);
         TEMPLATE
     end
 
     def client_name
-      name
+      #TODO: Do something better for generating name of the template
+      prefix = '/assets/'
+      path = eval_file
+      name_start = path.rindex(prefix)
+      path = file[(name_start + prefix.length)..-1] if name_start
+
+      parts = path.split(/-|_/)
+      res = parts[0] + (parts[1..-1] || []).map {|w| w.capitalize }.join
+      res = res.gsub(/\/|\\/, '_')
+      res.split('.').first # chomp of the extensions
     end
 
     def compile_to_function
