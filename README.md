@@ -4,6 +4,7 @@ _Pakunok_ contains a set of prepackaged assets that you can easily include into 
 
 The list of the assets included (reference those prefixed with `pakunok/`):
 
+- haml (also includes Rails 3.1 precompilation, see below)
 - jquery (defaults to 1.6.2)
   - jquery/jquery-1.6.2
   - jquery/jquery-1.5.2
@@ -155,6 +156,43 @@ In many cases you do not need the full jQuery-UI package, so you can do the foll
 All the files under `pakunok/jquery-ui/*` do not automatically include depndencies. This means that you can serve them separately.
 But if you want to include all the dependencies into a single file, then use `pakunok/jquery-ui/pack/*`.
 
+
+# HAML for client side templating
+_Pakunok_ provides a new templating engine for Rails 3.1 that can be used to produce JavsScript templates.
+
+What you need to do is to use `.hamljs` extension on a javascript file with the HAML content.
+It will generate a plain optimised JavaScipt function that you can use on the client.
+
+For example, assuming you have a file `app/assets/comment.js.hamljs` with the content:
+
+```haml
+.comment
+  .text= text
+  .author= author  
+```
+
+Then you can `require comment` from the `application.js`.
+This give you access to `Templates.comment` function allowing you to write JavaScript like this:
+
+```javascript
+var html = Templates.comment({author: 'Dima', text: 'Awesome'});
+$("#commit").append(html)
+```
+
+Yes, it uses one global variable `Templates` to add all the functions to.
+In case _pakunok_ could magically provide a good name for your template function, you can access it as `Templates['what ever it is!']`.
+
+The name of the template function is derrived from the file name. Here are simple example of mapping:
+
+```
+  file                      => file
+  file.js.erb.hamljs        => file
+  file-with-dash.hamljs     => fileWithDash
+  file_with_underscore      => fileWithUnderscore
+  dir/foo_bar               => dir_fooBar
+  win\dir\foo_bar           => win_dir_fooBar
+  d1/d2/foo_bar.js.a.b.c.d  => d1_d2_fooBar
+```
 
 # Development
 
