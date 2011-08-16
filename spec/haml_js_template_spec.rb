@@ -46,4 +46,9 @@ describe 'HAML-JS processor' do
 
   end
 
+  describe 'serving' do
+    subject { assets }
+    it { should serve 'haml/haml-foo-bar.js' }
+    it { should serve 'haml/not-haml.js' }
+  end
 end
