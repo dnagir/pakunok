@@ -201,6 +201,7 @@ The escaping function is generated inside each template resulting in larger Java
 It is *highly* recommended to set it to your own when you have more than a couple of templates.
 
 So, write your own JavaScript function:
+
 ```javascript
 var YourApp.html_escape = function(text) {
   return (text || "").
