@@ -163,7 +163,7 @@ _Pakunok_ provides a new templating engine for Rails 3.1 that can be used to pro
 What you need to do is to use `.hamljs` extension on a javascript file with the HAML content.
 It will generate a plain optimised JavaScipt function that you can use on the client.
 
-For example, assuming you have a file `app/assets/comment.js.hamljs` with the content:
+For example, assuming you have a file `app/assets/javascripts/comment.js.hamljs` with the content:
 
 ```haml
 .comment
@@ -179,10 +179,10 @@ var html = Templates.comment({author: 'Dima', text: 'Awesome'});
 $("#commit").append(html)
 ```
 
-Yes, it uses one global variable `Templates` to add all the functions to.
-In case _pakunok_ could magically provide a good name for your template function, you can access it as `Templates['what ever it is!']`.
+*NOTE*: [HAML-JS](https://github.com/creationix/haml-js) is a little bit different from the original HAML for Ruby.
 
-The name of the template function is derrived from the file name. Here are simple example of mapping:
+In case _pakunok_ could magically provide a good name for your template function, you can access it as `Templates['what ever it is!']`.
+The name of the template function is derrived from the file name. Some examples for you:
 
 ```
   file                      => file
@@ -192,6 +192,32 @@ The name of the template function is derrived from the file name. Here are simpl
   dir/foo_bar               => dir_fooBar
   win\dir\foo_bar           => win_dir_fooBar
   d1/d2/foo_bar.js.a.b.c.d  => d1_d2_fooBar
+```
+
+Yes, it uses one global variable `Templates` to add all the functions to (Let me know if you want to customise it).
+
+_Pakunok_ will escape the HTML using simple built-in function.
+The escaping function is generated inside each template resulting in larger JavaScript code base.
+It is *highly* recommended to set it to your own when you have more than a couple of templates.
+
+So, write your own JavaScript function:
+```javascript
+var YourApp.html_escape = function(text) {
+  return (text || "").
+    replace(/&/g, "&amp;").
+    replace(/</g, "&lt;").
+    replace(/>/g, "&gt;").
+    replace(/\"/g, "&quot;");
+  // or if using Prototype: text.escapeHTML()
+  // unfortunately no such in jQuery :(
+}
+```
+
+and then somewhere in your application:
+
+```ruby
+require 'pakunok/haml_js_template'
+::Pakunok::HamlJsTemplate.custom_escape = 'YourApp.html_escape'
 ```
 
 # Development
