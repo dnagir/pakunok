@@ -9,7 +9,6 @@ module Pakunok
       defined? ::ExecJS
     end
 
-
     def initialize_engine
       require_template_library 'execjs'
     end
@@ -20,9 +19,10 @@ module Pakunok
 
 
     def evaluate(scope, locals, &block)
+      ns = self.class.root_variable || 'JST'
       @output ||= <<-TEMPLATE
 (function(scope){
-  (scope.Templates || (scope.Templates = {}))['#{client_name}'] = #{compile_to_function};
+  (scope.#{ns} || (scope.#{ns} = {}))['#{client_name}'] = #{compile_to_function};
 })(this);
         TEMPLATE
     end
@@ -65,12 +65,14 @@ module Pakunok
 
     class << self
       attr_accessor :custom_escape
+      attr_accessor :root_variable
 
       def haml_source
         # Haml source is an asset
         @haml_source ||= IO.read File.expand_path('../../../vendor/assets/javascripts/pakunok/haml.js', __FILE__) 
       end
     end
+
   end
 end
 

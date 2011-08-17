@@ -24,14 +24,14 @@ describe 'HAML-JS processor' do
 
     it 'should make template available for JavaScript' do
       context = ExecJS.compile(subject)
-      html = context.eval("Templates.myTemplate({name: 'dima'})")
+      html = context.eval("JST.myTemplate({name: 'dima'})")
       html.should include '<div id="main">'
       html.should include 'dima'
     end
 
     it 'should be safe by default' do
       context = ExecJS.compile(subject)
-      html = context.eval("Templates.myTemplate({name: '<script>'})")
+      html = context.eval("JST.myTemplate({name: '<script>'})")
       html.should_not include '<script>'
       html.should include '&lt;script&gt;'
     end
@@ -40,6 +40,12 @@ describe 'HAML-JS processor' do
       before  { Pakunok::HamlJsTemplate.custom_escape = 'best_escaper_ever' }
       after   { Pakunok::HamlJsTemplate.custom_escape = nil }
       it      { should include 'best_escaper_ever(' }
+    end
+
+    context 'with custom root variable' do
+      before  { Pakunok::HamlJsTemplate.root_variable = 'TheRootVariable' }
+      after   { Pakunok::HamlJsTemplate.root_variable = nil }
+      it      { should include 'TheRootVariable' }
     end
   end
 
