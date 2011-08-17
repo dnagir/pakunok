@@ -212,8 +212,14 @@ Pakunok::HamlJsTemplate.custom_escape = 'YourApp.html_escape' # default is nil -
 
 # Change the global variable to attach templates to
 Pakunok::HamlJsTemplate.root_variable = 'Templates'  # default is 'JST'
+
+
+# Change the prefix from where to start naming the templates
+Pakunok::HamlJsTemplate.name_prefix = 'javascripts/templates'  # default is 'javascripts/'
+# This option will automatically be set to 'backbone/templates/' if back
 ```
 
+When option `name_prefix` is not set and [rails-backbone](https://github.com/codebrew/backbone-rails) is available then `backbone/templates/` is used by default.
 
 
 # Development

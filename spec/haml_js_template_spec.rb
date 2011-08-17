@@ -64,6 +64,34 @@ describe 'HAML-JS processor' do
       end
     end
 
+    context 'custom prefix' do
+      after { Pakunok::HamlJsTemplate.name_prefix = nil }
+      {
+        nil                               => ['javascripts/file.js',                    'file'],
+        nil                               => ['javascripts/comments/file.js',           'comments_file'],
+        'js/templates'                    => ['js/templates/x-file.js',                 'xFile'],
+        'javascripts/backbone/templates/' => ['javascripts/backbone/templates/file.js', 'file'],
+        '/backbone/templates/'            => ['javascripts/backbone/templates/file.js', 'file'],
+        'backbone/templates/'             => ['javascripts/backbone/templates/file.js', 'file']
+      }.each_pair do |prefix, file2name|
+        file, name = file2name
+        it "#{prefix} should produce #{name} from #{file}" do
+          Pakunok::HamlJsTemplate.name_prefix = prefix
+          template('#main', file).client_name.should == name
+        end
+      end
+
+      context 'with BackboneRails' do
+        before do
+          module BackboneRails
+          end
+        end
+
+        it 'should automatically apply rails-backbone prefix' do
+          template('#main', 'whatever/backbone/templates/my/foo-bar.js').client_name.should == 'my_fooBar'
+        end
+      end
+    end
   end
 
   describe 'serving' do

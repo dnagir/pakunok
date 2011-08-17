@@ -29,16 +29,20 @@ module Pakunok
 
 
     def client_name
-      #TODO: Do something better for generating name of the template
-      prefix = '/assets/'
+      prefix = self.class.name_prefix || if defined?(BackboneRails)
+        'backbone/templates/'
+      else
+        'javascripts/'
+      end
       path = eval_file
       name_start = path.rindex(prefix)
       path = file[(name_start + prefix.length)..-1] if name_start
 
+
       parts = path.split(/-|_/)
       res = parts[0] + (parts[1..-1] || []).map {|w| w.capitalize }.join
       res = res.gsub(/\/|\\/, '_')
-      res.split('.').first # chomp of the extensions
+      res.split('.').first.sub(/^_/, '') # chomp of the extensions
     end
 
 
@@ -66,6 +70,7 @@ module Pakunok
     class << self
       attr_accessor :custom_escape
       attr_accessor :root_variable
+      attr_accessor :name_prefix
 
       def haml_source
         # Haml source is an asset
