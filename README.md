@@ -172,16 +172,16 @@ For example, assuming you have a file `app/assets/javascripts/comment.js.hamljs`
 ```
 
 Then you can `require comment` from the `application.js`.
-This gives you access to `Templates.comment` function allowing you to write JavaScript like:
+This gives you access to `JST.comment` function allowing you to write JavaScript like:
 
 ```javascript
-var html = Templates.comment({author: 'Dima', text: 'Awesome'});
+var html = JST.comment({author: 'Dima', text: 'Awesome'});
 $("#commit").append(html)
 ```
 
 *NOTE*: [HAML-JS](https://github.com/creationix/haml-js) is a little bit different from the original HAML for Ruby.
 
-In case _pakunok_ could magically provide a good name for your template function, you can access it as `Templates['what ever it is!']`.
+In case _pakunok_ could magically provide a good name for your template function, you can access it as `JST['what ever it is!']`.
 The name of the template function is derrived from the file name. Some examples for you:
 
 ```
@@ -194,32 +194,27 @@ The name of the template function is derrived from the file name. Some examples 
   d1/d2/foo_bar.js.a.b.c.d  => d1_d2_fooBar
 ```
 
-Yes, it uses one global variable `Templates` to add all the functions to (Let me know if you want to customise it).
+Yes, it uses one global variable `JST` to add all the functions but you can change it (see example further).
 
 _Pakunok_ will escape the HTML using simple built-in function.
 The escaping function is generated inside each template resulting in larger JavaScript code base.
 It is *highly* recommended to set it to your own when you have more than a couple of templates.
 
-So, write your own JavaScript function:
 
-```javascript
-var YourApp.html_escape = function(text) {
-  return (text || "").
-    replace(/&/g, "&amp;").
-    replace(/</g, "&lt;").
-    replace(/>/g, "&gt;").
-    replace(/\"/g, "&quot;");
-  // or if using Prototype: text.escapeHTML()
-  // unfortunately no such in jQuery :(
-}
-```
-
-and then somewhere in your application:
+## HAML Configuration options
 
 ```ruby
+# Somewhere in your app...
 require 'pakunok/haml_js_template'
-::Pakunok::HamlJsTemplate.custom_escape = 'YourApp.html_escape'
+
+# Change the escapeHTML function
+Pakunok::HamlJsTemplate.custom_escape = 'YourApp.html_escape' # default is nil - built-in
+
+# Change the global variable to attach templates to
+Pakunok::HamlJsTemplate.root_variable = 'Templates'  # default is 'JST'
 ```
+
+
 
 # Development
 
