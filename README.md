@@ -2,7 +2,7 @@
 
 _Pakunok_ contains a set of prepackaged assets that you can easily include into your Rails 3.1 application (using assets pipeline).
 
-You can see all the included [assets](assets.md). (reference those prefixed with `pakunok/`):
+You can see all the included [assets](blob/master/assets.md). (reference those prefixed with `pakunok/`):
 
 Tested on MRI Ruby 1.9.2.
 
