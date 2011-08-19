@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pakunok (0.0.1)
+    pakunok (0.0.2)
       execjs
       rails (>= 3.1.0.rc5)
       sprockets (>= 2.0.0.beta13)
