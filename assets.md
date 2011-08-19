@@ -1,0 +1,51 @@
+List of all the assets that can be served (reference those prefixed with `pakunok/`)
+
+- haml (also includes Rails 3.1 precompilation)
+- jquery (defaults to 1.6.2)
+  - jquery/jquery-1.6.2
+  - jquery/jquery-1.5.2
+- jquery.validate
+- colorpicker (has CSS)
+- fileuploader (has CSS)
+- innershiv
+- jquery.form
+- jquery.validate
+- jquery.jscrollpane (has CSS)
+- jquery.mousewheel (optional improvement for jquery.jscrollpane)
+- mwheelIntent  (optional improvement for jquery.jscrollpane)
+- jquery.viewport
+- jquery-ui - standalone files (`jquery-ui/`): no dependencies tracked, serve these when part of jQueryUI has already been included elsewhere
+  - accordion
+  - autocomplete
+  - button
+  - core
+  - datepicker
+  - dialog
+  - draggable
+  - droppable
+  - effects (all effects, does not require jQuery-UI core)
+  - mouse
+  - position
+  - progressbar
+  - resizable
+  - selectable
+  - slider
+  - sortable
+  - tabs
+  - widget
+- jquery-ui -  combined (`jquery-ui/pack/`): ready-to-go options, you can include multiple into only one script file
+  - accordion
+  - autocomplete
+  - basic (includes core, widget, position, mouse components)
+  - button
+  - datepicker
+  - dialog
+  - draggable
+  - droppable
+  - effects (same as standalone)
+  - progressbar
+  - resizable
+  - selectable
+  - slider
+  - sortable
+  - tabs
