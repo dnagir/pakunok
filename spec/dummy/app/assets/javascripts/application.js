@@ -8,3 +8,6 @@
 // require jquery
 // require jquery_ujs
 // require_tree .
+//= require sample
+//= require pakunok/jquery
+//= require pages
