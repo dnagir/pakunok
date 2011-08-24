@@ -20,18 +20,16 @@ module Pakunok
     end
   end
 
-  require 'sprockets/helpers/rails_helper.rb' # https://github.com/rails/rails/blob/master/actionpack/lib/sprockets/helpers/rails_helper.rb
   class HttpContext
     attr_accessor :request
-    include Sprockets::Helpers::RailsHelper
 
     def initialize(request, rails_assets = nil)
-      @rails_assets = rails_assets
       @request = request
+      @rails_assets = rails_assets
     end
 
     def rails_assets
-      # TODO: pass it in
+      # TODO: do actually pass it in
       @rails_assets or Rails.application.config.assets
     end
   end
