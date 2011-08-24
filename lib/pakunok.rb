@@ -1,12 +1,4 @@
-module Pakunok
-  class Engine < Rails::Engine
-    initializer "pakunok.configure_rails_initialization" do |app|
-      next unless app.config.assets.enabled
+require 'pakunok/railtie' if defined?(::Rails)
+require 'pakunok/engine' if defined?(::Rails)
 
-      require 'sprockets'
-      require 'sprockets/engines'
-      require 'pakunok/haml_js_template'
-      Sprockets.register_engine '.hamljs', ::Pakunok::HamlJsTemplate
-    end
-  end
-end
+

@@ -8,6 +8,10 @@ describe Pakunok::Pakunok do
   let(:rails_assets)  { mock(:rails_assets) }
   let(:context)       { Pakunok::HttpContext.new(request, rails_assets)  }
 
+  it 'should have default renderer for javascript' do
+    subject.render_types.should == {:javascript => :script, :stylesheet => :link}
+  end
+
   describe 'adding asset to configuration' do
     it 'should include dependent assets' do
       subject.asset('a.js').needs 'b', 'c'
