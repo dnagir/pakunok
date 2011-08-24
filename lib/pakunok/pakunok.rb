@@ -12,6 +12,10 @@ module Pakunok
       @current ||= Pakunok.new
     end
 
+    def configure(&block)
+      self.instance_eval &block
+    end
+
     def asset(path)
       @managed ||= Hash.new
       asset = @managed[path]
@@ -30,7 +34,6 @@ module Pakunok
       @renderers ||= Hash.new
       renderer = @renderers[name]
       unless renderer
-        require "pakunok/renderers/#{name}_renderer"
         renderer = ::Pakunok::AssetRenderers.const_get(name.to_s.capitalize + 'Renderer').new(self)
         @renderers[name] = renderer
       end
@@ -40,19 +43,23 @@ module Pakunok
     def assets
       @managed
     end
+
+    def all_paths
+      assets.keys
+    end
+
+    def javascript_loader(renderer_type)
+      @render_types[:javascript] = renderer_type
+    end
   end
 
   class HttpContext
     attr_accessor :request
+    include Sprockets::Helpers::RailsHelper
 
-    def initialize(request, rails_assets = nil)
+    def initialize(request)
+      # https://github.com/rails/rails/blob/master/actionpack/lib/sprockets/helpers/rails_helper.rb
       @request = request
-      @rails_assets = rails_assets
-    end
-
-    def rails_assets
-      # TODO: do actually pass it in
-      @rails_assets or Rails.application.config.assets
     end
   end
 
@@ -105,7 +112,7 @@ module Pakunok
     end
 
     def asset_url(context)
-      context.rails_assets.asset_path path
+      context.asset_path path
     end
 
     def depends_on

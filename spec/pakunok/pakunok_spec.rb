@@ -1,12 +1,11 @@
 require 'spec_helper'
-require 'pakunok/pakunok'
+require 'pakunok'
 
 describe Pakunok::Pakunok do
 
   subject             { Pakunok::Pakunok.new }
   let(:request)       { mock(:request) }
-  let(:rails_assets)  { mock(:rails_assets) }
-  let(:context)       { Pakunok::HttpContext.new(request, rails_assets)  }
+  let(:context)       { Pakunok::HttpContext.new(request)  }
 
   it 'should have default renderer for javascript' do
     subject.render_types.should == {:javascript => :script, :stylesheet => :link}
@@ -63,7 +62,7 @@ describe Pakunok::Pakunok do
     end
 
     it 'uses asset path with no CDN' do
-      rails_assets.should_receive(:asset_path).with('a.js')
+      context.should_receive(:asset_path).with('a.js')
       subject.asset('a.js').url(context)
     end
 
@@ -74,8 +73,8 @@ describe Pakunok::Pakunok do
     end
 
     it 'with CDN and protocol' do
-      subject.asset('a.js').replace_with :cdn => 'http://google.com/a.js'
-      subject.asset('a.js').url(context).should == 'http://google.com/a.js'
+      subject.asset('a.js').replace_with :cdn => 'https://google.com/a.js'
+      subject.asset('a.js').url(context).should == 'https://google.com/a.js'
     end
 
   end

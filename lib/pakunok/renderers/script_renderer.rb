@@ -1,7 +1,6 @@
 module Pakunok
   module AssetRenderers
 
-
     class ScriptRenderer
       def initialize(pakunok)
         @pakunok = pakunok
@@ -16,20 +15,21 @@ module Pakunok
       end
 
       def separator
-        "\n    "
+        "\n"
       end
 
       def render_asset(context, asset)
+        resource = context.asset_paths.asset_environment[asset.path]
+        raise "Asset #{asset.path} is not available in rails. Check the pakunok configuration, you could misspell something." unless resource
         async_attr = asset.async? ? " async='async'" : ''
         if asset.embedded?
           "<script type='text/javascript'#{async_attr}>\n" +
-          context.rails_assets[asset.path].to_s +
+          resource.to_s +
           "\n</script>"
         else
           "<script type='text/javascript' src='#{asset.url(context)}'#{async_attr}></script>"
         end
       end
-
     end
 
   end

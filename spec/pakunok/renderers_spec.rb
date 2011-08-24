@@ -1,13 +1,12 @@
 require 'spec_helper'
-require 'pakunok/pakunok'
+require 'pakunok'
 
 describe Pakunok::Pakunok do
   subject             { Pakunok::Pakunok.new }
   let(:request)       { mock(:request) }
-  let(:rails_assets)  { mock(:rails_assets) }
-  let(:context)       { Pakunok::HttpContext.new(request, rails_assets)  }
+  let(:context)       { Pakunok::HttpContext.new(request)  }
   before do
-    rails_assets.stub(:asset_path) { |path| path }
+    context.stub(:asset_path) { |path| path }
   end
 
   it 'should raise if renderer doesnt exist' do
@@ -26,6 +25,12 @@ describe Pakunok::Pakunok do
     end
 
     context 'script' do
+      before do
+        emu = double(:fake_sprockets_asset)
+        emu.stub(:to_s).and_return "I am inline!"
+        context.stub_chain(:asset_paths, :asset_environment, :[]) { |path| emu }
+      end
+
       let(:renderer)  { ::Pakunok::AssetRenderers::ScriptRenderer.new(subject) }
 
       def result(path='c')
@@ -44,9 +49,6 @@ describe Pakunok::Pakunok do
       end
 
       it 'should embed small script' do
-        emu = double(:fake_rails_asset)
-        emu.stub(:to_s).and_return "I am inline!"
-        rails_assets.stub(:[]).with('emu').and_return emu
 
         subject.asset('emu').needs('a').embed()
         result('emu').should include "I am inline!"

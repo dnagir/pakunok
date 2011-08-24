@@ -16,10 +16,14 @@ module Pakunok
       
       
       def include_pakunok_assets(asset_type, path=nil)
-        path = (path || request.params[:controller]).to_s
         p = pakunok_assets
+        path = path || (
+          request.params[:controller] + {:javascript => '.js', :stylesheet => '.css'}[asset_type]
+        ).to_s
+
+        @pakunok_context ||= ::Pakunok::HttpContext.new(request)
         renderer = p.renderer_for(p.render_types.fetch asset_type)
-        renderer.render(path).html_safe
+        renderer.render(@pakunok_context, path).html_safe
       end
       
     end             
