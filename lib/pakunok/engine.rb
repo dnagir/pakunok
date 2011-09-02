@@ -6,7 +6,7 @@ module Pakunok
       require 'sprockets'
       require 'sprockets/engines'
       require 'pakunok/haml_js_template'
-      Sprockets.register_engine '.hamljs', ::Pakunok::HamlJsTemplate
+      app.assets.register_engine '.hamljs', ::Pakunok::HamlJsTemplate
     end
   end
 end
